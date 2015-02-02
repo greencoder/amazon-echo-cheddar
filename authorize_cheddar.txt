@@ -1,0 +1,12 @@
+First, go register an application:
+https://cheddarapp.com/developer/apps/new
+
+View your application to get the Client ID and Secret:
+https://cheddarapp.com/developer/apps/<app_id>
+
+On that page, you'll find an access token. Use the token to get your lists:
+curl -i "https://api.cheddarapp.com/v1/lists" -H "Authorization: Bearer <access_token>"
+
+Find your list in the response and note its "id" parameter. Use that ID to add items to your list:
+curl -i "https://api.cheddarapp.com/v1/lists/<list_id>/tasks" -X POST -d "task[text]=<URL escaped task text>" -H "Authorization: Bearer <access_token>"
+
