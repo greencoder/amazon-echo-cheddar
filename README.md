@@ -1,6 +1,6 @@
 ## Amazon Echo Cheddar
 
-Moves items from your Amazon Echo Shopping list to your lists in Cheddar. 
+Moves items from your Amazon Echo Shopping list to your lists in [Cheddar](http://www.cheddarapp.com). 
 
 ## Usage
 
