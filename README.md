@@ -30,7 +30,7 @@ On that page, you'll find an access token. Use the token to get your lists:
 
 `curl -i "https://api.cheddarapp.com/v1/lists" -H "Authorization: Bearer <access_token>"`
 
-Find your list in the response and note its "id" parameter. Use that ID to add items to your list:
+Find your list in the response and note its "id" parameter. Use that ID to add items to your list. If you want to test, you can use `curl` to put an item into your list:
 
 `curl -i "https://api.cheddarapp.com/v1/lists/<list_id>/tasks" -X POST -d "task[text]=<URL escaped task text>" -H "Authorization: Bearer <access_token>"`
 
