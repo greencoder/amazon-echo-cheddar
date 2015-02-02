@@ -38,7 +38,7 @@ class AmazonManager():
 
         # The body is the item to add
         data = {
-            "task[text]": urllib.quote_plus(item['text']),
+            "task[text]": item['text'],
         }
 
         # Put the OAuth info into the headers
