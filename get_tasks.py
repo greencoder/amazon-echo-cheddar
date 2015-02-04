@@ -38,7 +38,7 @@ class AmazonManager():
 
         # The body is the item to add
         data = {
-            "task[text]": item['text'],
+            "task[text]": item['text'].title(),
         }
 
         # Put the OAuth info into the headers
@@ -70,6 +70,9 @@ class AmazonManager():
             item['deleted'] = True
             url = 'https://pitangui.amazon.com/api/todos/%s' % id
             delete_request = self.session.put(url, data=json.dumps(item), headers=headers)
+
+            if not delete_request.status_code == 200:
+                print "Error deleting item"
 
     def fetch_shopping_items(self):
 
