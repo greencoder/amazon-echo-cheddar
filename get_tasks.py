@@ -31,6 +31,28 @@ class AmazonManager():
     def __del__(self):
         self.logout()
 
+    def check_list_for_item(self, item):
+
+        # The Cheddar API URL for fetching a list
+        url = "https://api.cheddarapp.com/v1/lists/%s/tasks" % self.cheddar_list_id
+
+        # Put the OAuth info into the headers
+        headers = {
+            "Authorization": "Bearer %s" % self.cheddar_access_token,
+        }
+
+        cheddar_request = requests.get(url, headers=headers)
+        list_json = cheddar_request.json()
+
+        # Iterate over all the items in the list and check for a match
+        # to the item we are interested in
+        for item_dict in list_json:
+            if item_dict['text'].lower() == item['text'].lower():
+                return True
+
+        # If we don't find a match, return false
+        return False
+
     def add_item_to_cheddar(self, item):
 
         # The Cheddar API URL for adding a task to a list
@@ -155,6 +177,14 @@ if __name__ == "__main__":
     items = manager.fetch_shopping_items()
 
     for item in items:
+
         print "%s\tFound Item: %s" % (arrow.now(), item['text'])
-        manager.add_item_to_cheddar(item)
+        
+        # Make sure the item is not already in Cheddar
+        if manager.check_list_for_item(item) == True:
+            print "%s\tItem already exists in Cheddar. Skipping." % arrow.now()
+        else:
+            manager.add_item_to_cheddar(item)
+
+        # Delete from the Echo
         manager.delete_shopping_items(items)
